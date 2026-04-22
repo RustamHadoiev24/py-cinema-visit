@@ -5,22 +5,23 @@ from app.people.customer import Customer
 
 
 def cinema_visit(
-    customers: list[dict],
-    hall_number: int,
-    cleaner: str,
-    movie: str
+        customers: list[dict],
+        hall_number: int,
+        cleaner: str,
+        movie: str
 ) -> None:
+    cinema_bar = CinemaBar()
+    hall = CinemaHall(hall_number)
+    cleaner_instance = Cleaner(cleaner)
+
     customer_instances = [
         Customer(person["name"], person["food"]) for person in customers
     ]
 
     for customer in customer_instances:
-        CinemaBar.sell_product(customer.food, customer)
+        cinema_bar.sell_product(customer.food, customer)
 
-    cleaner_instance = Cleaner(cleaner)
-    hall_instance = CinemaHall(hall_number)
-
-    hall_instance.movie_session(
+    hall.movie_session(
         movie_name=movie,
         customers=customer_instances,
         cleaning_staff=cleaner_instance
